@@ -10,7 +10,7 @@ from telegram.ext import ApplicationBuilder, ContextTypes, MessageHandler
 import gspread
 
 TOKEN = os.environ.get('TOKEN')
-USERNAME = os.environ.get('USERNAME')
+USERNAME = os.environ.get('USER_NAME')
 USER_ID = os.environ.get('USER_ID')
 
 gc = gspread.service_account(filename='credentials.json')
