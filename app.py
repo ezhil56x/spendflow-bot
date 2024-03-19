@@ -27,7 +27,7 @@ if not worksheet.acell('A1').value:
     worksheet.append_row(['Date', 'Description', 'Amount'])
 
 async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.effective_user.username != USERNAME and update.effective_user.id != USER_ID:
+    if update.effective_user.username != USERNAME and str(update.effective_user.id) != USER_ID:
         username = update.effective_user.username
         user_id = update.effective_user.id
         first_name = update.effective_user.first_name
@@ -38,7 +38,7 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         with open('logs.csv', 'a') as file:
             file.write(f'{date},{time},{user_id},{username},{first_name},{last_name}\n')
 
-    if update.effective_user.username == USERNAME and update.effective_user.id == USER_ID:
+    if update.effective_user.username == USERNAME and str(update.effective_user.id) == USER_ID:
         message = update.message.text
 
         if message == 'ping':
