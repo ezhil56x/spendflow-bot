@@ -1,0 +1,25 @@
+name: Deploying to VPS
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: SSH and deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ./spendflow
+            git pull
+            docker rm -f spendflow || true
+            docker build -t spendflow .
+            docker run -d --name spendflow --restart always spendflow
